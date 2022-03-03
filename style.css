@@ -15,10 +15,12 @@ body {
 .container {
     display: flex;
     flex-direction: column;
-    width: 550px;
-    height: 700px;
-    background-color: bisque;
     align-items: center;
+
+    width: 550px;
+    background-color: bisque;
+    border-radius: 20px;
+    padding: 80px 0 40px 0;
 }
 
 
@@ -34,7 +36,6 @@ body {
     background-color: white;
     border: 4px black solid;
     border-radius: 8px;
-    margin-top: 40px;
     padding: 0 20px;
 
     justify-content: end;
@@ -52,5 +53,32 @@ button {
 
 .buttons-container {
     width: 90%;
-    display:flex;
+    border: 4px gray solid;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.nums-operators {
+    display: flex;
+}
+
+.nums,
+.operators {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.bottom-keys {
+    display: flex;
+    justify-content: center;
+}
+
+.bottom-keys button {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    
+    background-color: red;
 }
