@@ -17,5 +17,22 @@ const divide = (x,y) => x/y;
 const multiply = (x,y) => x*y;
 
 function showNumbers(number){
-    const display = document.querySelector('#')
+
+    display.textContent += number;
+    displayNumber = display.textContent;
+    // return number;
 }
+
+const display = document.querySelector('#display');
+let displayNumber = 0;
+
+
+const numbers = document.querySelectorAll('.number');
+
+numbers.forEach((number) => {
+    number.addEventListener('click', () => {
+        showNumbers(number.id);
+    })
+});
+
+
