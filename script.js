@@ -1,90 +1,81 @@
 const display = document.querySelector('#display');
-
-const numbers = document.querySelectorAll('.number');
-const operators = document.querySelectorAll('.operator');
-const equals = document.querySelector('#equals');
+const buttons = document.querySelectorAll('button');
 
 let firstNumber = 0;
+let secondNumber = 0;
 let operator = '';
-
-
-// numbers.forEach((number) => {
-//     number.addEventListener('click', () => {
-//         showNumbers(number, 'numbers');
-//     })
-// });
-
-// operators.forEach((symbol) => {
-//     symbol.addEventListener('click', () => {
-//         chooseOperator(symbol);
-//     })
-// });
-
-// equals.addEventListener('click', () => {
-//     operate(operator);
-// });
-
-
-const buttons = document.querySelectorAll('button');
+let solution = 0;
 
 buttons.forEach(button => {
     button.addEventListener('click', () => {
         switch (button.className) {
             case ('number'):
-                
-                console.log(button.id);
-                break;
+                if (secondNumber === 0) {
+                    if (button.id === 'dot') {
+                        display.textContent += '.'
+                        break;
+                    } else {
+                        display.textContent += parseFloat(button.id)
+                        break;
+                    };
+                } else {
+                    display.textContent = parseFloat(button.id);
+                    secondNumber = 0;
+                    break;
+                }
             case ('operator'):
-                console.log(button.id)
+                if (operator !== '') {
+
+                    solution = operate(operator);
+                    display.textContent = solution;
+                    firstNumber = parseFloat(display.textContent);
+                    operator = button.id;
+                } else {
+                    firstNumber = parseFloat(display.textContent);
+                    display.textContent = '';
+                    operator = button.id;
+                }
                 break;
             case ('equals'):
-                console.log(button.id)
+                solution = operate(operator);
+                display.textContent = solution;
+                firstNumber = solution;
+                operator = '';
+
                 break;
             case ('clc'):
-                console.log(button.id)
+                firstNumber = 0;
+                secondNumber = 0;
+                display.textContent = '';
                 break;
         }
     })
 });
 
 
-
-
-function showNumbers(number, cases) {
-    switch (cases) {
-        case 'numbers':
-            display.textContent += number.id;
-            break;
-        case 'equals':
-            display.textContent = number;
-            break;
-    }
-
-}
-
-function chooseOperator(symbol) {
-    firstNumber = parseInt(display.textContent);
-    display.textContent = '';
-    operator = symbol;
-
-}
-
 function operate(operator) {
-    let secondNumber = parseInt(display.textContent);
+    // if (parseFloat(display.textContent) !== NaN) {
+    //     return firstNumber;
+    // } else {
+        secondNumber = parseFloat(display.textContent);
+        switch (operator) {
+            case 'plus':
+                return sum(firstNumber, secondNumber);
 
-    switch (operator.id) {
-        case 'plus':
-            showNumbers(sum(firstNumber, secondNumber), 'equals');
-            break;
-        case 'subtract':
-            showNumbers(subtract(firstNumber, secondNumber, 'equals'));
-            break;
-        case 'divide':
-            showNumbers(divide(firstNumber, secondNumber, 'equals'));
-            break;
-        case 'multiply':
-            showNumbers(multiply(firstNumber, secondNumber, 'equals'));
-            break;
+            case 'subtract':
+                return subtract(firstNumber, secondNumber, 'equals');
+
+            case 'divide':
+                if (secondNumber == 0) {
+                    console.log('hey');
+                    return 'Nice try bub';
+                } else {
+                    return divide(firstNumber, secondNumber, 'equals');
+                }
+
+            case 'multiply':
+                return multiply(firstNumber, secondNumber, 'equals');
+        // }
     }
 }
 
